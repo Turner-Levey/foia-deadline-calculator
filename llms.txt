@@ -1,0 +1,25 @@
+# FOIA 20 Working Day Deadline Calculator
+
+> Free local-first, no-tracking federal FOIA due-date calculator for 20-working-day public-records request tracking.
+
+Site: https://foia-deadline-calculator.vercel.app/
+Source: https://github.com/Turner-Levey/foia-deadline-calculator
+IndexNow key file: https://foia-deadline-calculator.vercel.app/4f2e8d9c6b7a4f3a9e1c0d8b6a2f4c1e.txt
+
+## Tool
+
+- [FOIA 20 Working Day Deadline Calculator](https://foia-deadline-calculator.vercel.app/): Estimate a federal FOIA 20-working-day response target, optional tolling days, and optional 10-working-day unusual-circumstances extension; copy a source-linked memo, export a CSV row, or download an ICS calendar hold.
+
+## Notes
+
+- Runs entirely in the browser.
+- No signup, cookies, analytics, beacons, uploads, external scripts, or browser storage.
+- Uses standard observed U.S. federal holidays plus optional custom closure dates.
+- Informational worksheet only; not legal advice, state public-records advice, appeal advice, litigation advice, agency representation, official FOIA.gov affiliation, or an agency filing service.
+
+## Sources
+
+- DOJ FOIA Reference Guide: https://www.justice.gov/oip/department-justice-freedom-information-act-reference-guide
+- DOJ text of 5 U.S.C. 552: https://www.justice.gov/oip/freedom-information-act-5-usc-552
+- FOIA.gov request guide: https://www.foia.gov/how-to.html
+- OPM federal holidays: https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/

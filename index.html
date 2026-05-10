@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FOIA 20 Working Day Deadline Calculator</title>
+    <meta name="description" content="Free no-tracking FOIA due date calculator for estimating the 20-working-day federal response target, optional tolling days, 10-working-day unusual-circumstances extension, memo copy, CSV export, and ICS calendar hold.">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://foia-deadline-calculator.vercel.app/">
+    <meta property="og:title" content="FOIA 20 Working Day Deadline Calculator">
+    <meta property="og:description" content="Estimate federal FOIA response target dates locally in your browser, excluding weekends and standard U.S. federal holidays.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://foia-deadline-calculator.vercel.app/">
+    <meta property="og:image" content="https://foia-deadline-calculator.vercel.app/og.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://foia-deadline-calculator.vercel.app/og.svg">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareApplication",
+            "name": "FOIA 20 Working Day Deadline Calculator",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "Any",
+            "url": "https://foia-deadline-calculator.vercel.app/",
+            "description": "Free no-tracking browser-only worksheet for estimating federal FOIA 20-working-day response target dates.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What does this FOIA calculator do?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "It estimates a federal FOIA 20-working-day determination target from a clock-start date, excluding Saturdays, Sundays, and standard U.S. federal holidays, then creates memo, CSV, and calendar outputs."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is the federal FOIA response deadline?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "DOJ guidance says agencies are generally required to respond within twenty business days, excluding Saturdays, Sundays, and legal holidays. This tool applies that planning baseline."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does it handle unusual circumstances extensions?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. You can include the common 10-working-day unusual-circumstances extension as a separate planning target."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does this upload FOIA request text?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. The calculator runs entirely in the browser and has no signup, cookies, analytics, beacons, external scripts, uploads, or browser storage."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <main class="app">
+      <section class="panel tool-panel" aria-labelledby="page-title">
+        <div class="mast">
+          <div>
+            <p class="eyebrow">Local-first public records worksheet</p>
+            <h1 id="page-title">FOIA 20 Working Day Deadline Calculator</h1>
+            <p class="lede">Estimate the federal FOIA 20-working-day response target from a request clock-start date, add tolling or unusual-circumstances time when relevant, and export a memo, CSV row, or calendar hold for your request tracker.</p>
+          </div>
+          <div class="date-badge" aria-label="FOIA working day baseline">
+            <span>20</span>
+            <small>working days, weekends and holidays excluded</small>
+          </div>
+        </div>
+
+        <form class="calculator" id="deadline-form">
+          <div class="grid">
+            <label class="field">
+              <span>Request label</span>
+              <input id="request-label" type="text" autocomplete="off" value="Example FOIA request">
+            </label>
+            <label class="field">
+              <span>Agency or component</span>
+              <input id="agency" type="text" autocomplete="off" value="Example agency FOIA office">
+            </label>
+            <label class="field">
+              <span>Clock-start date</span>
+              <input id="start-date" type="date">
+            </label>
+            <label class="field">
+              <span>Clock-start basis</span>
+              <select id="start-basis">
+                <option>Received by appropriate FOIA component</option>
+                <option>Reached 10th working day after agency-designated FOIA receipt</option>
+                <option>Requester clarified scope or fees</option>
+                <option>Agency-specific receipt date to verify</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="grid">
+            <label class="field">
+              <span>Tolling / pause days</span>
+              <input id="pause-days" type="number" min="0" step="1" value="0">
+            </label>
+            <label class="field">
+              <span>Unusual-circumstances extension</span>
+              <select id="extension-days">
+                <option value="0">No extension target</option>
+                <option value="10">Add 10 working days</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Agency response date, optional</span>
+              <input id="response-date" type="date">
+            </label>
+            <label class="field">
+              <span>Tracker status</span>
+              <select id="tracker-status">
+                <option>No response yet</option>
+                <option>Acknowledged / assigned tracking number</option>
+                <option>Clarification requested</option>
+                <option>Extension notice received</option>
+                <option>Determination received</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="field full">
+            <span>Extra federal closure dates</span>
+            <input id="closure-dates" type="text" placeholder="2026-01-20, 2026-12-24">
+          </label>
+          <label class="field full">
+            <span>Request note</span>
+            <input id="request-note" type="text" value="Verify agency receipt, tracking number, tolling notices, and any agency-specific appeal language before relying on a date.">
+          </label>
+          <label class="field full">
+            <span>Next follow-up step</span>
+            <input id="next-step" type="text" value="Check the agency portal or acknowledgment letter, then calendar a follow-up for the calculated target date.">
+          </label>
+
+          <div class="result-band" id="results" aria-live="polite"></div>
+          <textarea id="memo-output" spellcheck="false" aria-label="Generated FOIA deadline memo"></textarea>
+
+          <div class="actions">
+            <button type="button" id="calculate">Calculate</button>
+            <button type="button" id="copy-memo">Copy memo</button>
+            <button type="button" id="copy-csv">Copy CSV row</button>
+            <button type="button" id="download-csv">Download CSV</button>
+            <button type="button" id="download-ics">Download calendar hold</button>
+          </div>
+          <p class="rate-note">This worksheet estimates federal FOIA timing only. It does not decide whether a request is perfected, tolled, expedited, remanded, appealed on time, or governed by a state public-records deadline.</p>
+        </form>
+      </section>
+
+      <section class="support">
+        <div class="source-strip">
+          <span>Sources and adjacent tools</span>
+          <a href="https://www.justice.gov/oip/department-justice-freedom-information-act-reference-guide" rel="noreferrer">DOJ FOIA Reference Guide</a>
+          <a href="https://www.justice.gov/oip/freedom-information-act-5-usc-552" rel="noreferrer">DOJ text of 5 U.S.C. 552</a>
+          <a href="https://www.foia.gov/how-to.html" rel="noreferrer">FOIA.gov request guide</a>
+          <a href="https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/" rel="noreferrer">OPM federal holidays</a>
+          <a href="https://kev-deadline-planner.vercel.app/" rel="noreferrer">CISA KEV deadline planner</a>
+          <a href="https://section-16-deadline-calculator.vercel.app/" rel="noreferrer">Section 16 deadline calculator</a>
+        </div>
+        <div class="examples">
+          <h2>What It Covers</h2>
+          <div class="table-wrap" role="region" aria-label="FOIA planning coverage">
+            <table>
+              <thead>
+                <tr>
+                  <th>Planning step</th>
+                  <th>Worksheet output</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>20 working days</td><td>Estimated determination target excluding Saturdays, Sundays, and standard federal holidays</td></tr>
+                <tr><td>Tolling / pause days</td><td>Optional additional working days for requester clarification, fee clarification, or verified agency clock pauses</td></tr>
+                <tr><td>Unusual circumstances</td><td>Optional 10-working-day extended target for a separate follow-up date</td></tr>
+                <tr><td>Federal holidays</td><td>Observed-date holiday handling for the entered year, with custom closure dates when needed</td></tr>
+                <tr><td>Exports</td><td>Source-linked memo copy, CSV row, and local all-day ICS calendar hold</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="privacy">
+          <h2>No Tracking</h2>
+          <p>This standalone tool has no signup, cookies, analytics, beacons, external scripts, uploads, or browser storage. Calculations happen in the browser tab.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

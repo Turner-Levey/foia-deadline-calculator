@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://foia-deadline-calculator.vercel.app/sitemap.xml
