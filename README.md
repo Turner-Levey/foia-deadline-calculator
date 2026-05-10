@@ -14,6 +14,8 @@ Live site: https://foia-deadline-calculator.vercel.app/
 
 Source: https://github.com/Turner-Levey/foia-deadline-calculator
 
+![FOIA 20 Working Day Deadline Calculator preview](https://foia-deadline-calculator.vercel.app/preview.png)
+
 Sources:
 
 - DOJ FOIA Reference Guide: https://www.justice.gov/oip/department-justice-freedom-information-act-reference-guide
