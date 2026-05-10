@@ -14,6 +14,10 @@ Live site: https://foia-deadline-calculator.vercel.app/
 
 Source: https://github.com/Turner-Levey/foia-deadline-calculator
 
+No-Login Tools listing (pending review): https://nologin.tools/tool/foia-deadline-calculator-vercel-app/
+
+No-Login Tools badge (pending verification): https://nologin.tools/badge/foia-deadline-calculator-vercel-app/
+
 ![FOIA 20 Working Day Deadline Calculator preview](https://foia-deadline-calculator.vercel.app/preview.png)
 
 Sources:
